@@ -248,7 +248,7 @@ class ROME:
 
 		self.gcode.run_script_from_command("SET_GCODE_VARIABLE MACRO=RatOS VARIABLE=relative_extrusion VALUE=True")
 		self.gcode.run_script_from_command("SET_GCODE_VARIABLE MACRO=_START_PRINT_AFTER_HEATING_EXTRUDER VARIABLE=tool VALUE=" + str(tool + 1))
-		self.gcode.run_script_from_command("START_PRINT BED_TEMP=" + str(bed_temp) + " EXTRUDER_TEMP=" + str(extruder_temp) + " CHAMBER_TEMP=" + str(chamber_temp) + " X0=" + str(x0) + " X1=" + str(x0) + " Y0=" + str(x0) + " Y1=" + str(x0))
+		self.gcode.run_script_from_command("START_PRINT BED_TEMP=" + str(bed_temp) + " EXTRUDER_TEMP=" + str(extruder_temp) + " CHAMBER_TEMP=" + str(chamber_temp) + " X0=" + str(x0) + " X1=" + str(x1) + " Y0=" + str(y0) + " Y1=" + str(y1))
 
 	def cmd_ROME_INSERT_GCODE(self, param):
 		self.insert_gcode()
@@ -473,8 +473,8 @@ class ROME:
 			# check hotend temperature
 			if not self.extruder_can_extrude():
 				self.respond("Hotend too cold!")
-				self.respond("Heating up nozzle to " + str(self.heater.min_extrude_temp))
-				self.extruder_set_temperature(self.heater.min_extrude_temp, True)
+				self.respond("Heating up nozzle to " + str(self.heater.min_extrude_temp + 10))
+				self.extruder_set_temperature(self.heater.min_extrude_temp + 10, True)
 
 			# select filament
 			self.select_tool(tool)
@@ -509,8 +509,8 @@ class ROME:
 		# check hotend temperature
 		if not self.extruder_can_extrude():
 			self.respond("Hotend too cold!")
-			self.respond("Heating up nozzle to " + str(self.heater.min_extrude_temp))
-			self.extruder_set_temperature(self.heater.min_extrude_temp, True)
+			self.respond("Heating up nozzle to " + str(self.heater.min_extrude_temp + 10))
+			self.extruder_set_temperature(self.heater.min_extrude_temp + 10, True)
 
 		if self.rome_setup == 0:
 			# select filament
@@ -619,8 +619,8 @@ class ROME:
 		# check hotend temperature
 		if not self.extruder_can_extrude():
 			self.respond("Hotend too cold!")
-			self.respond("Heat up nozzle to " + str(self.heater.min_extrude_temp))
-			self.extruder_set_temperature(self.heater.min_extrude_temp, True)
+			self.respond("Heat up nozzle to " + str(self.heater.min_extrude_temp + 10))
+			self.extruder_set_temperature(self.heater.min_extrude_temp + 10, True)
 
 		# enable filament sensor
 		self.enable_toolhead_filament_sensor()
